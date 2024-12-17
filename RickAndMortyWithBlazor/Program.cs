@@ -1,3 +1,4 @@
+using MudBlazor.Services;
 using RickAndMortyWithBlazor.Components;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -7,9 +8,12 @@ builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents()
     .AddInteractiveWebAssemblyComponents();
 
+
 builder.Services.AddHttpClient(
-    "api", x => x.BaseAddress = new Uri("")
+    "api", x => x.BaseAddress = new Uri("https://rickandmortyapi.com/api/")
     );
+
+builder.Services.AddMudServices();
 
 var app = builder.Build();
 

@@ -9,6 +9,7 @@
   <ItemGroup>
     <ProjectReference Include="..\RickAndMortyWithBlazor.Client\RickAndMortyWithBlazor.Client.csproj" />
     <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Server" Version="9.0.0" />
+    <PackageReference Include="MudBlazor" Version="7.15.0" />
   </ItemGroup>
 
 </Project>
