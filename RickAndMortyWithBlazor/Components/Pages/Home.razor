@@ -1,5 +1,4 @@
-﻿@rendermode InteractiveAuto
-@attribute [StreamRendering]
+﻿@attribute [StreamRendering]
 @inject IHttpClientFactory httpF
 @inject NavigationManager nv;
 
@@ -15,7 +14,7 @@
 {
     @foreach (var item in response.Results)
     {
-    
+       <Card caracter="item"></Card>
     }
 }
 

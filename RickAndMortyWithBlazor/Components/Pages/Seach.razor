@@ -1,0 +1,30 @@
+﻿@page "/search"
+@page "/search/{busqueda}"
+
+
+<p>Busqueda...</p>
+
+
+@if (busqueda != null)
+{
+    @foreach (var item in _resultados)
+    {
+        <Card caracter="item"></Card>
+    }
+}
+
+
+@code {
+    [Parameter]
+    public string? busqueda { get; set; }
+
+    private IEnumerable<Results> _resultados;
+
+    protected override async Task OnInitializedAsync()
+    {
+       // _resultados = await apiCall.GetFromJsonAsync<CharacterResponse>("character");6
+    
+    }
+
+
+}
