@@ -1,0 +1,49 @@
+﻿@* @page "/result" *@
+@page "/result/{_param?}"
+@inject IHttpClientFactory httpF
+@rendermode InteractiveAuto
+<h3>ForResult: @_param</h3>
+
+
+<input type="text" @bind="_param" @bind:event="oninput" @onkeydown="Buscando" />
+<p>Valor a buscar @_param</p>
+@foreach (var Item in filtrado)
+{
+    <Card caracter="Item"></Card>
+}
+
+@code {
+    [Parameter]
+    public string? _param { get; set; }
+
+    List<Results>? filtrado = new List<Results>();  
+
+    public CharacterResponse? total;
+
+    protected override async Task OnInitializedAsync()
+    {
+        var apiCall = httpF.CreateClient("api");
+        total = await apiCall.GetFromJsonAsync<CharacterResponse>("character");
+
+        if(String.IsNullOrEmpty(_param)){
+            filtrado = total.Results;
+        }
+        else
+        {
+        
+        filtrado = total.Results.Where(x => x.Name.Contains(_param, StringComparison.OrdinalIgnoreCase)).ToList();
+
+        }
+    }
+
+
+    private void Buscando()
+    {
+    if (String.IsNullOrEmpty(_param)){
+            filtrado = total?.Results;
+            Console.WriteLine("esta vacio");
+        }
+            else
+            filtrado = total?.Results.Where(x => x.Name.Contains(_param, StringComparison.OrdinalIgnoreCase)).ToList();
+    }
+}

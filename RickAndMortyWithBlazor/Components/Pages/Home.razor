@@ -1,32 +1,26 @@
 ﻿@attribute [StreamRendering]
 @inject IHttpClientFactory httpF
-@inject NavigationManager nv;
+@inject NavigationManager NavManager
 
 @page "/"
 
-<PageTitle>Home</PageTitle>
-
-
-
-
-
-@if(response?.Results != null)
+<ForSearch />
+@if (response?.Results != null)
 {
     @foreach (var item in response.Results)
     {
-       <Card caracter="item"></Card>
+        <Card caracter="item"></Card>
     }
 }
-
-
 @code{
+ 
     public CharacterResponse? response;
 
     protected override async Task OnInitializedAsync()
     {
-        var apiCall =   httpF.CreateClient("api");
+        var apiCall = httpF.CreateClient("api");
         response = await apiCall.GetFromJsonAsync<CharacterResponse>("character");
     }
 
-
+    
 }

@@ -1,0 +1,18 @@
+﻿@inject NavigationManager nv
+@rendermode InteractiveServer
+<h3>Buscador: </h3>
+
+<input type="text" @bind="_busqueda" @bind:event="oninput" @onkeydown="Buscar"/>
+
+<p>Valor: @_busqueda</p>
+@code {
+
+    private string? _busqueda;
+    private void Buscar(KeyboardEventArgs args)
+    {
+        if (args.Key != "Enter") return;
+        nv.NavigateTo($"/result/{_busqueda}");
+    }
+ 
+
+}
