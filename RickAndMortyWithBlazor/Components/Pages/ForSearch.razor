@@ -1,18 +1,27 @@
 ﻿@inject NavigationManager nv
 @rendermode InteractiveServer
 <h3>Buscador: </h3>
-
 <input type="text" @bind="_busqueda" @bind:event="oninput" @onkeydown="Buscar"/>
 
+<select class="form-select" @bind="_gender">
+    <option value="" selected>Definie</option>
+    <option value="Male" >Male</option>
+    <option value="Female">Female</option>
+</select>
 <p>Valor: @_busqueda</p>
 @code {
 
     private string? _busqueda;
+    private string? _gender;
+
     private void Buscar(KeyboardEventArgs args)
     {
         if (args.Key != "Enter") return;
-        nv.NavigateTo($"/result/{_busqueda}");
-    }
- 
-
+        else{
+            if (string.IsNullOrEmpty(_gender))
+                nv.NavigateTo($"/result/{_busqueda}");
+            else
+                nv.NavigateTo($"/result/{_busqueda}/gender/{_gender}");
+        }
+    } 
 }

@@ -1,9 +1,17 @@
 ﻿@* @page "/result" *@
 @page "/result/{_param?}"
+@page "/result/{_param?}/gender/{_genero?}"
 @inject IHttpClientFactory httpF
 @rendermode InteractiveAuto
 <h3>ForResult: @_param</h3>
-
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item">
+            <a href="/">Home</a>
+        </li>
+        <li class="breadcrumb-item active" aria-current="page">Search</li>
+    </ol>
+</nav>
 
 <input type="text" @bind="_param" @bind:event="oninput" @onkeydown="Buscando" />
 <p>Valor a buscar @_param</p>
@@ -14,7 +22,10 @@
 
 @code {
     [Parameter]
-    public string? _param { get; set; }
+    public string? _param { get; set; } 
+    
+    [Parameter]
+    public string? _genero { get; set; }
 
     List<Results>? filtrado = new List<Results>();  
 
@@ -30,8 +41,10 @@
         }
         else
         {
-        
-        filtrado = total.Results.Where(x => x.Name.Contains(_param, StringComparison.OrdinalIgnoreCase)).ToList();
+            if (string.IsNullOrEmpty(_genero))
+            filtrado = total.Results.Where(x => x.Name.Contains(_param, StringComparison.OrdinalIgnoreCase)).ToList();
+            else
+                filtrado = total.Results.Where(x => x.Name.Contains(_param, StringComparison.OrdinalIgnoreCase) && x.Gender==_genero).ToList();
 
         }
     }
